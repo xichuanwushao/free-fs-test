@@ -3,14 +3,14 @@ server:
   # 云存储配置
 fs:
   files-server:
-    type: local
+    type: oss
     local:
-      uploadPath:local
-      ngxinxUrl:local
+      uploadPath: local
+      ngxinxUrl: local
     minio:
-      accessKey:minio
-      secretKey:minio
+      accessKey: minio
+      secretKey: minio
     #oss配置
     oss:
-      accessKey:oss
-      secretKey:oss
+      accessKey: oss
+      secretKey: oss
