@@ -12,6 +12,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class LocalService extends AbstractIFileService{
     @Override
     protected FilePojo uploadFile(MultipartFile file) {
+        System.out.println("@date : 19:28 2022/3/11 uploadFile");
         return null;
     }
+
+    @Override
+    protected void deleteFile(String url) {
+        System.out.println("@date : 19:28 2022/3/11 deleteFile");
+    }
+
+
 }

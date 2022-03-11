@@ -1,5 +1,6 @@
 package com.free.fs.controller;
 
+import com.free.fs.common.util.R;
 import com.free.fs.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +26,15 @@ public class FileController {
     @GetMapping({ "/list"})
     public String getList() {
         return "查询成功";
+    }
+
+
+    @GetMapping("/deleteFile")
+    public R deleteFile(String url) {
+        if (fileService.delete(url)) {
+            return R.succeed("删除成功");
+        }
+        return R.failed("删除失败");
+
     }
 }

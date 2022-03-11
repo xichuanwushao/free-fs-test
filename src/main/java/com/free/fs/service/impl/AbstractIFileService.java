@@ -16,4 +16,16 @@ public abstract class AbstractIFileService implements FileService {
      * @param file
      */
     protected abstract FilePojo uploadFile(MultipartFile file);
+
+    @Override
+    public boolean delete(String url) {
+        deleteFile( url);
+        return false;
+    }
+    /**
+     * 删除文件资源
+     *
+     * @param url 文件路径
+     */
+    protected abstract void deleteFile(String url);
 }
