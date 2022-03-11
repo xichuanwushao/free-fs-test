@@ -1,2 +1,16 @@
 server:
   port: 8081
+  # 云存储配置
+fs:
+  files-server:
+    type: local
+    local:
+      uploadPath:
+      ngxinxUrl:
+    qiniu:
+      accessKey:
+      secretKey:
+    #oss配置
+    oss:
+      accessKey:
+      secretKey:
