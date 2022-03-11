@@ -5,12 +5,12 @@ fs:
   files-server:
     type: local
     local:
-      uploadPath:
-      ngxinxUrl:
-    qiniu:
-      accessKey:
-      secretKey:
+      uploadPath:local
+      ngxinxUrl:local
+    minio:
+      accessKey:minio
+      secretKey:minio
     #oss配置
     oss:
-      accessKey:
-      secretKey:
+      accessKey:oss
+      secretKey:oss

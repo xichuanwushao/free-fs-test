@@ -1,6 +1,9 @@
 package com.free.fs.common.template;
 
+import com.free.fs.common.properties.FsServerProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+
+import javax.annotation.Resource;
 
 /**
  * @author : wuxiao
@@ -8,4 +11,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
  */
 @ConditionalOnProperty(prefix = "fs.files-server", name = "type", havingValue = "minio")
 public class MinioTemplate {
+    @Resource
+    private FsServerProperties fileProperties;
+
+    public void delete(String url) {
+        String key = fileProperties.getMinio().getAccessKey() ;
+        System.out.println("20:25 2022/3/11 MinioTemplate delete" +key);
+    }
 }
