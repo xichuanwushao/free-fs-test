@@ -22,8 +22,10 @@ public class OssService extends AbstractIFileService{
 
     @Override
     protected FilePojo uploadFile(MultipartFile file) {
+        System.out.println("20:25 2022/3/11 OssService uploadFile" );
         return null;
     }
+
 
     @Override
     protected void deleteFile(String url) {
@@ -34,4 +36,5 @@ public class OssService extends AbstractIFileService{
     public void download(String url, HttpServletResponse response) {
         System.out.println("20:25 2022/3/11 OssService download" );
     }
+
 }

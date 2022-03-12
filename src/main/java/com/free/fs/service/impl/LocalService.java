@@ -20,15 +20,16 @@ public class LocalService extends AbstractIFileService{
     @Resource
     private LocalTemplate localTemplate;
 
-    @Override
-    protected FilePojo uploadFile(MultipartFile file) {
-        System.out.println("@date : 19:28 2022/3/11 uploadFile");
-        return null;
-    }
 
     @Override
     protected void deleteFile(String url) {
         localTemplate.delete(url);
+    }
+
+    @Override
+    protected FilePojo uploadFile(MultipartFile file) {
+        System.out.println("20:25 2022/3/11 MinioService LocalFile" );
+        return null;
     }
 
 
@@ -36,5 +37,8 @@ public class LocalService extends AbstractIFileService{
     public void download(String url, HttpServletResponse response) {
         localTemplate.download(url, response);
     }
+
+
+
 
 }

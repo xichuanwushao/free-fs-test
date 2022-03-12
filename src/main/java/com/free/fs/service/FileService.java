@@ -60,4 +60,15 @@ public interface FileService {
      * @return
      */
     void download(String url, HttpServletResponse response);
+
+    /**
+     * 上传文件
+     *
+     * @param files
+     * @param dirIds
+     * @return
+     */
+    R upload(MultipartFile[] files, String dirIds);
+
+
 }

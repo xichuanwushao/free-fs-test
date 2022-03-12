@@ -23,8 +23,10 @@ public class MinioService extends AbstractIFileService{
 
     @Override
     protected FilePojo uploadFile(MultipartFile file) {
+        System.out.println("20:25 2022/3/11 MinioService uploadFile" );
         return null;
     }
+
 
     @Override
     protected void deleteFile(String url) {

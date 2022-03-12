@@ -4,12 +4,12 @@ import com.free.fs.common.util.R;
 import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -108,4 +108,20 @@ public class FileController {
     public void downLoad(String url, HttpServletResponse response) {
         fileService.download(url, response);
     }
+
+
+    /**
+     * 文件上传
+     *
+     * @param files
+     * @param dirIds
+     * @return
+     */
+    @PostMapping({"", "/upload"})
+    public R upload(@RequestParam(value = "file") MultipartFile[] files, String dirIds) {
+
+        return fileService.upload(files, dirIds);
+
+    }
+
 }

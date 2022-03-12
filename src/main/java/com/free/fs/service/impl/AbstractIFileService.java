@@ -1,5 +1,6 @@
 package com.free.fs.service.impl;
 
+import com.free.fs.common.util.R;
 import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,12 +14,6 @@ import java.util.List;
  */
 public abstract class AbstractIFileService implements FileService {
 
-    /**
-     * 上传文件
-     *
-     * @param file
-     */
-    protected abstract FilePojo uploadFile(MultipartFile file);
 
     @Override
     public boolean delete(String url) {
@@ -57,4 +52,17 @@ public abstract class AbstractIFileService implements FileService {
         System.out.println(" AbstractIFileService updateByName 调用了重命名");
         return true;
     }
+    @Override
+    public R upload(MultipartFile[] files, String dirIds){
+        for (MultipartFile file : files) {
+            FilePojo filePojo = uploadFile(file);
+        }
+        return null;
+    }
+    /**
+     * 上传文件
+     *
+     * @param file
+     */
+    protected abstract FilePojo uploadFile(MultipartFile file);
 }
