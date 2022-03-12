@@ -124,4 +124,38 @@ public class FileController {
 
     }
 
+
+    /**
+     * 文件分片上传
+     *
+     * @param files
+     * @return
+     */
+    @PostMapping("/uploadSharding")
+    public R uploadSharding(@RequestParam(value = "file") MultipartFile[] files, String dirIds, HttpServletRequest request) {
+        return fileService.uploadSharding(files, dirIds, request.getSession());
+    }
+
+    /**
+     * 获取进度数据
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/percent")
+    public Integer percent(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (session.getAttribute("uploadPercent") == null ? 0 : (Integer) session.getAttribute("uploadPercent"));
+    }
+
+    /**
+     * 重置上传进度
+     *
+     * @param request
+     */
+    @GetMapping("/percent/reset")
+    public void resetPercent(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("uploadPercent", 0);
+    }
 }

@@ -5,6 +5,7 @@ import com.free.fs.model.FilePojo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -71,4 +72,11 @@ public interface FileService {
     R upload(MultipartFile[] files, String dirIds);
 
 
+    /**
+     * 分片上传大文件
+     *
+     * @param files
+     * @return
+     */
+    R uploadSharding(MultipartFile[] files,String dirIds, HttpSession session);
 }

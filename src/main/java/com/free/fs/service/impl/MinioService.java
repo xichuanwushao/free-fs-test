@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author : wuxiao
@@ -24,6 +25,12 @@ public class MinioService extends AbstractIFileService{
     @Override
     protected FilePojo uploadFile(MultipartFile file) {
         System.out.println("20:25 2022/3/11 MinioService uploadFile" );
+        return null;
+    }
+
+    @Override
+    protected FilePojo uploadFileSharding(MultipartFile file, HttpSession session) {
+        System.out.println("20:25 2022/3/11 MinioService uploadFileSharding" );
         return null;
     }
 

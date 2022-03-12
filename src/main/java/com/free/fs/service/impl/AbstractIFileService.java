@@ -5,6 +5,7 @@ import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,4 +66,16 @@ public abstract class AbstractIFileService implements FileService {
      * @param file
      */
     protected abstract FilePojo uploadFile(MultipartFile file);
+
+    @Override
+    public R uploadSharding(MultipartFile[] files, String dirIds, HttpSession session) {
+
+        for (MultipartFile file : files) {
+            FilePojo filePojo = uploadFileSharding(file, session);
+        }
+        return R.succeed("上传成功");
+    }
+
+    protected abstract FilePojo uploadFileSharding(MultipartFile file, HttpSession session);
+
 }
