@@ -46,4 +46,15 @@ public abstract class AbstractIFileService implements FileService {
         System.out.println(" AbstractIFileService addFolder 调用了删除文件夹");
         return false;
     }
+
+    @Override
+    public boolean move(String ids, Long parentId) {
+        System.out.println(" AbstractIFileService move 调用了移动文件");
+        return true;
+    }
+    @Override
+    public boolean updateByName(FilePojo pojo) {
+        System.out.println(" AbstractIFileService updateByName 调用了重命名");
+        return true;
+    }
 }

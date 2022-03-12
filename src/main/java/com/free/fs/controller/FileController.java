@@ -72,4 +72,30 @@ public class FileController {
         fileService.delete(url);
         return R.succeed("删除成功");
     }
+
+
+    /**
+     * 移动文件
+     *
+     * @param ids
+     * @param parentId
+     */
+    @PostMapping("/move")
+    public R move(String ids, Long parentId) {
+        fileService.move(ids, parentId);
+        return R.succeed("移动成功");
+    }
+
+    /**
+     * 修改名称
+     *
+     * @param pojo
+     */
+    @PostMapping("/updateByName")
+    public R upload(FilePojo pojo) {
+        fileService.updateByName(pojo);
+        return R.succeed("修改成功");
+
+    }
+
 }

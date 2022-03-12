@@ -35,4 +35,20 @@ public interface FileService {
      * @return
      */
     boolean deleteByIds(Long id);
+
+    /**
+     * 移动文件
+     *
+     * @param ids
+     * @param parentId
+     * @return
+     */
+    boolean move(String ids, Long parentId);
+    /**
+     * 重命名
+     *
+     * @param pojo
+     * @return
+     */
+    boolean updateByName(FilePojo pojo);
 }
