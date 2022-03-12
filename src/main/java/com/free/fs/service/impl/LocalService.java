@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author : wuxiao
@@ -30,5 +31,10 @@ public class LocalService extends AbstractIFileService{
         localTemplate.delete(url);
     }
 
+
+    @Override
+    public void download(String url, HttpServletResponse response) {
+        localTemplate.download(url, response);
+    }
 
 }

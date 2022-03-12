@@ -42,4 +42,8 @@ Content-Type: application/x-www-form-urlencoded
 POST http://127.0.0.1:8081/file/updateByName
 Content-Type: application/x-www-form-urlencoded
 
+####
+
+GET http://127.0.0.1:8081/file/downLoad
+
 ###

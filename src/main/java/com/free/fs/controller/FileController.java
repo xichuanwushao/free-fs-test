@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -97,5 +98,14 @@ public class FileController {
         return R.succeed("修改成功");
 
     }
-
+    /**
+     * 文件下载
+     *
+     * @param url
+     * @param response
+     */
+    @GetMapping("/downLoad")
+    public void downLoad(String url, HttpServletResponse response) {
+        fileService.download(url, response);
+    }
 }

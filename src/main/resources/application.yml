@@ -3,7 +3,7 @@ server:
   # 云存储配置
 fs:
   files-server:
-    type: oss
+    type: minio
     local:
       uploadPath: local
       ngxinxUrl: local

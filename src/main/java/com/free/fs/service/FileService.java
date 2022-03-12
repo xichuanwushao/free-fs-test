@@ -4,6 +4,7 @@ import com.free.fs.common.util.R;
 import com.free.fs.model.FilePojo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -51,4 +52,12 @@ public interface FileService {
      * @return
      */
     boolean updateByName(FilePojo pojo);
+
+    /**
+     * 下载文件
+     *
+     * @param url
+     * @return
+     */
+    void download(String url, HttpServletResponse response);
 }

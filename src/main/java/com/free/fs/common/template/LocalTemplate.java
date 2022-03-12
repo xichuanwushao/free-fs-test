@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author : wuxiao
@@ -17,7 +18,11 @@ public class LocalTemplate {
     private FsServerProperties fileProperties;
 
     public void delete(String url) {
-        String upload = fileProperties.getLocal().getUploadPath() ;
-        System.out.println("20:25 2022/3/11 LocalTemplate delete" +upload);
+        String delete = fileProperties.getLocal().getUploadPath() ;
+        System.out.println("20:25 2022/3/11 LocalTemplate delete" +delete);
+    }
+
+    public void download(String url, HttpServletResponse response) {
+        System.out.println("20:25 2022/3/11 LocalTemplate download" );
     }
 }

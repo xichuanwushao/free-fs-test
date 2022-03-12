@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author : wuxiao
@@ -27,5 +28,10 @@ public class OssService extends AbstractIFileService{
     @Override
     protected void deleteFile(String url) {
         ossTemplate.delete(url);
+    }
+
+    @Override
+    public void download(String url, HttpServletResponse response) {
+        System.out.println("20:25 2022/3/11 OssService download" );
     }
 }
