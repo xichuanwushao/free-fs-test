@@ -19,4 +19,20 @@ public interface FileService {
      * @return
      */
     boolean delete(String url);
+
+    /**
+     * 新增文件夹
+     *
+     * @param pojo
+     * @return
+     */
+    boolean addFolder(FilePojo pojo);
+
+    /**
+     * 根据id集合批量删除
+     *
+     * @param id
+     * @return
+     */
+    boolean deleteByIds(Long id);
 }
