@@ -25,13 +25,13 @@ public class MinioService extends AbstractIFileService{
     @Override
     protected FilePojo uploadFile(MultipartFile file) {
         System.out.println("20:25 2022/3/11 MinioService uploadFile" );
-        return null;
+        return minioTemplate.upload(file);
     }
 
     @Override
     protected FilePojo uploadFileSharding(MultipartFile file, HttpSession session) {
         System.out.println("20:25 2022/3/11 MinioService uploadFileSharding" );
-        return null;
+        return minioTemplate.uploadSharding(file, session);
     }
 
 
@@ -42,6 +42,6 @@ public class MinioService extends AbstractIFileService{
 
     @Override
     public void download(String url, HttpServletResponse response) {
-        System.out.println("20:25 2022/3/11 MinioService download" );
+        minioTemplate.download(url, response);
     }
 }
