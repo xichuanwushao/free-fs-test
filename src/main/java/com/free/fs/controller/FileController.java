@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : wuxiao
@@ -157,5 +158,30 @@ public class FileController {
     public void resetPercent(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("uploadPercent", 0);
+    }
+
+
+    /**
+     * 获取目录列表
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/getDirs")
+    public R getDirs(Long id) {
+        Map<String, Object> map = fileService.getDirs(id);
+        return R.succeed(map, "查询成功");
+    }
+
+    /**
+     * 获取文件列表
+     *
+     * @param pojo
+     * @return
+     */
+    @GetMapping({"", "/list"})
+    public R getList(FilePojo pojo) {
+        List<FilePojo> list = fileService.getList(pojo);
+        return R.succeed(list, "查询成功");
     }
 }

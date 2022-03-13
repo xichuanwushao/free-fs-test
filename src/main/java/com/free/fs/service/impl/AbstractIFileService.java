@@ -3,11 +3,14 @@ package com.free.fs.service.impl;
 import com.free.fs.common.util.R;
 import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : wuxiao
@@ -78,4 +81,17 @@ public abstract class AbstractIFileService implements FileService {
 
     protected abstract FilePojo uploadFileSharding(MultipartFile file, HttpSession session);
 
+
+    @Override
+    public Map<String, Object> getDirs(Long id) {
+        System.out.println(" AbstractIFileService getDirs 调用了getDirs");
+        return null;
+    }
+
+
+    @Override
+    public List<FilePojo> getList(FilePojo pojo) {
+        System.out.println(" AbstractIFileService getList 调用了getList");
+        return null;
+    }
 }

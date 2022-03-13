@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : wuxiao
@@ -79,4 +80,20 @@ public interface FileService {
      * @return
      */
     R uploadSharding(MultipartFile[] files,String dirIds, HttpSession session);
+
+    /**
+     * 根据id拼接父目录
+     *
+     * @param id
+     * @return
+     */
+    Map<String, Object> getDirs(Long id);
+
+    /**
+     * 获取文件列表
+     *
+     * @param pojo
+     * @return
+     */
+    List<FilePojo> getList(FilePojo pojo);
 }
