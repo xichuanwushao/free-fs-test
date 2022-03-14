@@ -1,7 +1,11 @@
 package com.free.fs.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 /**
@@ -12,6 +16,9 @@ import java.io.Serializable;
  * @author wuxiao
  * @since 2022-03-14
  */
+@Data
+@TableName("file_info")
+@EqualsAndHashCode(callSuper = true)
 public class FileInfo extends Model<FileInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -71,122 +78,5 @@ public class FileInfo extends Model<FileInfo> {
      */
     private String source;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getSuffix() {
-        return suffix;
-    }
-
-    public void setSuffix(String suffix) {
-        this.suffix = suffix;
-    }
-
-    public Boolean getImg() {
-        return isImg;
-    }
-
-    public void setImg(Boolean isImg) {
-        this.isImg = isImg;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public LocalDateTime getPutTime() {
-        return putTime;
-    }
-
-    public void setPutTime(LocalDateTime putTime) {
-        this.putTime = putTime;
-    }
-
-    public Boolean getDir() {
-        return isDir;
-    }
-
-    public void setDir(Boolean isDir) {
-        this.isDir = isDir;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return null;
-    }
-
-    @Override
-    public String toString() {
-        return "FileInfo{" +
-        ", id=" + id +
-        ", url=" + url +
-        ", name=" + name +
-        ", fileName=" + fileName +
-        ", suffix=" + suffix +
-        ", isImg=" + isImg +
-        ", size=" + size +
-        ", type=" + type +
-        ", putTime=" + putTime +
-        ", isDir=" + isDir +
-        ", parentId=" + parentId +
-        ", source=" + source +
-        "}";
-    }
 }
