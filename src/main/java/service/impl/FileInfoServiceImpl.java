@@ -1,7 +1,7 @@
 package service.impl;
 
-import com.free.fs.entity.FileInfo;
 import com.free.fs.mapper.FileInfoMapper;
+import com.free.fs.model.FilePojo;
 import service.IFileInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-03-14
  */
 @Service
-public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> implements IFileInfoService {
+public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FilePojo> implements IFileInfoService {
 
 }

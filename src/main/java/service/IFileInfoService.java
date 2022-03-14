@@ -1,7 +1,7 @@
 package service;
 
-import com.free.fs.entity.FileInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.free.fs.model.FilePojo;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author wuxiao
  * @since 2022-03-14
  */
-public interface IFileInfoService extends IService<FileInfo> {
+public interface IFileInfoService extends IService<FilePojo> {
 
 }

@@ -1,7 +1,7 @@
 package com.free.fs.mapper;
 
-import com.free.fs.entity.FileInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.free.fs.model.FilePojo;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author wuxiao
  * @since 2022-03-14
  */
-public interface FileInfoMapper extends BaseMapper<FileInfo> {
+public interface FileInfoMapper extends BaseMapper<FilePojo> {
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.free.fs.mapper.FileInfoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.free.fs.entity.FileInfo">
+    <resultMap id="BaseResultMap" type="com.free.fs.model.FilePojo">
         <id column="id" property="id" />
         <result column="url" property="url" />
         <result column="name" property="name" />
