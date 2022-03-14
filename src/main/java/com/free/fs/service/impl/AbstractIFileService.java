@@ -78,11 +78,30 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
         System.out.println(" AbstractIFileService move 调用了移动文件");
         return true;
     }
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean updateByName(FilePojo pojo) {
-        System.out.println(" AbstractIFileService updateByName 调用了重命名");
-        return true;
+        if (pojo.getName().equals(pojo.getRename())) {
+            throw new BusinessException("当前名称与原始名称相同，请修改后重试！");
+        }
+        FilePojo p = baseMapper.selectById(pojo.getId());
+        //判断文件夹名称在当前目录中是否存在
+        Integer count = baseMapper.selectCount(
+                new LambdaQueryWrapper<FilePojo>()
+                        .eq(FilePojo::getName, pojo.getRename())
+                        .eq(FilePojo::getIsDir,p.getIsDir())
+                        .eq(FilePojo::getParentId,p.getParentId())
+        );
+        if (count > 0) {
+            throw new BusinessException("当前目录已存在该名称,请修改后重试！");
+        }
+        FilePojo updPojo = new FilePojo();
+        updPojo.setId(pojo.getId());
+        updPojo.setName(pojo.getRename());
+        return baseMapper.updateById(updPojo) > 0;
     }
+
     @Override
     public R upload(MultipartFile[] files, String dirIds){
         for (MultipartFile file : files) {

@@ -97,8 +97,10 @@ public class FileController {
      */
     @PostMapping("/updateByName")
     public R upload(FilePojo pojo) {
-        fileService.updateByName(pojo);
-        return R.succeed("修改成功");
+        if (fileService.updateByName(pojo)) {
+            return R.succeed("修改成功");
+        }
+        return R.failed("修改失败");
 
     }
     /**
