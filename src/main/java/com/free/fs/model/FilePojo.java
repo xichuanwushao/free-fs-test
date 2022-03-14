@@ -1,5 +1,6 @@
 package com.free.fs.model;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -22,8 +23,8 @@ public class FilePojo extends Model<FilePojo> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId
+    private Long id;
 
     /**
      * 资源路径
@@ -70,12 +71,22 @@ public class FilePojo extends Model<FilePojo> {
      */
     private Boolean isDir;
 
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 来源
      */
     private String source;
 
+    /**
+     * 重命名的名称值
+     */
+    @TableField(exist = false)
+    private String rename;
 
+    /**
+     * 目录id拼接
+     */
+    @TableField(exist = false)
+    private String dirIds;
 }

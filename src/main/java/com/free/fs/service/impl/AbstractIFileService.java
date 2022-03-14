@@ -1,8 +1,15 @@
 package com.free.fs.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.free.fs.common.constant.CommonConstant;
+import com.free.fs.common.exception.BusinessException;
 import com.free.fs.common.util.R;
+import com.free.fs.mapper.FileInfoMapper;
 import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +23,7 @@ import java.util.Map;
  * @author : wuxiao
  * @date : 19:24 2022/3/11
  */
-public abstract class AbstractIFileService implements FileService {
+public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, FilePojo> implements FileService {
 
 
     @Override
@@ -34,10 +41,30 @@ public abstract class AbstractIFileService implements FileService {
 
 
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean addFolder(FilePojo pojo) {
-        System.out.println(" AbstractIFileService addFolder 调用了新增文件夹");
-        return false;
+        String dirId = pojo.getDirIds().substring(pojo.getDirIds().lastIndexOf(CommonConstant.DIR_SPLIT) + 1);
+        if (CommonConstant.DIR_SPLIT.equals(dirId) || StringUtils.isEmpty(dirId)) {
+            pojo.setParentId(CommonConstant.ROOT_PARENT_ID);
+        } else {
+            FilePojo p = baseMapper.selectById(Long.parseLong(dirId));
+            pojo.setParentId(p.getId());
+        }
+        pojo.setType(CommonConstant.DEFAULT_DIR_TYPE);
+        pojo.setIsDir(Boolean.TRUE);
+        pojo.setIsImg(Boolean.FALSE);
+        //判断文件夹名称在当前目录中是否存在
+        Integer count = baseMapper.selectCount(
+                new LambdaQueryWrapper<FilePojo>()
+                        .eq(FilePojo::getName,pojo.getName())
+                        .eq(FilePojo::getIsDir,Boolean.TRUE)
+                        .eq(FilePojo::getParentId,pojo.getParentId())
+        );
+        if (count > 0) {
+            throw new BusinessException("当前目录名称已存在，请修改后重试！");
+        }
+        return baseMapper.insert(pojo) > 0;
     }
 
     @Override

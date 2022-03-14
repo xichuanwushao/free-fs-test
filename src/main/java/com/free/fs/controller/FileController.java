@@ -48,8 +48,10 @@ public class FileController {
      */
     @PostMapping("/addFolder")
     public R addFolder(FilePojo pojo) {
-        fileService.addFolder(pojo);
-        return R.succeed("添加成功");
+        if (fileService.addFolder(pojo)) {
+            return R.succeed("添加成功");
+        }
+        return R.failed("添加失败");
     }
     /**
      * 根据id删除文件
