@@ -35,7 +35,7 @@ public class EntityGenerator {
 
     static{
         tableNames = new String[]{
-                "mooc_backend_user_t"
+                "file_info"
         };
     }
 
