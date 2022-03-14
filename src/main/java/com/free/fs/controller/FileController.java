@@ -86,8 +86,10 @@ public class FileController {
      */
     @PostMapping("/move")
     public R move(String ids, Long parentId) {
-        fileService.move(ids, parentId);
-        return R.succeed("移动成功");
+        if (fileService.move(ids, parentId)) {
+            return R.succeed("移动成功");
+        }
+        return R.failed("移动失败");
     }
 
     /**

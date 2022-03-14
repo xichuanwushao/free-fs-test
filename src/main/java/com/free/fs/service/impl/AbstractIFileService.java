@@ -73,9 +73,22 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
         return false;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean move(String ids, Long parentId) {
-        System.out.println(" AbstractIFileService move 调用了移动文件");
+        if (StringUtils.isEmpty(ids)) {
+            throw new BusinessException("请选择要移动的文件或目录");
+        }
+        String[] idsArry = ids.split(CommonConstant.STRING_SPLIT);
+        FilePojo updatePojo;
+        for (String id : idsArry) {
+            updatePojo = new FilePojo();
+            updatePojo.setId(Long.parseLong(id));
+            updatePojo.setParentId(parentId);
+            if (baseMapper.updateById(updatePojo) <= 0) {
+                throw new BusinessException("移动失败");
+            }
+        }
         return true;
     }
 
