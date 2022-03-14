@@ -1,6 +1,6 @@
 package com.free.fs.mapper;
 
-import com.free.fs.entity.MoocBackendUserT;
+import com.free.fs.model.MoocBackendUserT;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

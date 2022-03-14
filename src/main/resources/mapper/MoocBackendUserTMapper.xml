@@ -3,7 +3,7 @@
 <mapper namespace="com.free.fs.mapper.MoocBackendUserTMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.free.fs.entity.MoocBackendUserT">
+    <resultMap id="BaseResultMap" type="com.free.fs.model.MoocBackendUserT">
         <id column="UUID" property="uuid" />
         <result column="user_name" property="userName" />
         <result column="user_pwd" property="userPwd" />

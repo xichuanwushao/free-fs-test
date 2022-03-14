@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.free.fs.FreeFsTestApplicationTests;
-import com.free.fs.entity.MoocBackendUserT;
+import com.free.fs.model.MoocBackendUserT;
 import com.free.fs.mapper.MoocBackendUserTMapper;
 import org.junit.Test;
 
