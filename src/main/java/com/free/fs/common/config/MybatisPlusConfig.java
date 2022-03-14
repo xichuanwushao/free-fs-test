@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"com.free.fs.common.**.dao.mapper"})
+@MapperScan(basePackages = {"com.free.fs.mapper"})
 public class MybatisPlusConfig {
 
     @Bean
