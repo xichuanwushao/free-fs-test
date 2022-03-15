@@ -1,6 +1,8 @@
 server:
   port: 8081
   # 云存储配置
+  servlet:
+    context-path: /free-fs-test
 fs:
   files-server:
     type: minio
@@ -14,3 +16,8 @@ fs:
     oss:
       accessKey: oss
       secretKey: oss
+swagger:
+  # 是否开启swagger
+  enabled: true
+  # 请求前缀
+  pathMapping: /
