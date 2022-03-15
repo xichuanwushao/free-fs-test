@@ -143,8 +143,19 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
 
     @Override
     public Map<String, Object> getDirs(Long id) {
-        System.out.println(" AbstractIFileService getDirs 调用了getDirs");
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        List<FilePojo> filePojos = baseMapper.selectParentList(id);
+        StringBuilder dir = new StringBuilder(CommonConstant.DIR_SPLIT);
+        StringBuilder dirIds = new StringBuilder(CommonConstant.DIR_SPLIT);
+        if (!CollectionUtils.isEmpty(filePojos)) {
+            for (FilePojo filePojo : filePojos) {
+                dir.append(filePojo.getName()).append(CommonConstant.DIR_SPLIT);
+                dirIds.append(filePojo.getId()).append(CommonConstant.DIR_SPLIT);
+            }
+        }
+        map.put("dirs", dir.length() > 0 ? dir.deleteCharAt(dir.length() - 1).toString() : "");
+        map.put("dirIds", dirIds.length() > 0 ? dirIds.deleteCharAt(dirIds.length() - 1).toString() : "");
+        return map;
     }
 
 

@@ -176,7 +176,7 @@ public class FileController {
     @GetMapping("/getDirs")
     public R getDirs(Long id) {
         Map<String, Object> map = fileService.getDirs(id);
-        return R.succeed(map, "查询成功");
+        return R.succeed(map, "查询成功!");
     }
 
     /**
