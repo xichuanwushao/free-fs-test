@@ -73,11 +73,44 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
         return baseMapper.insert(pojo) > 0;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean deleteByIds(Long id){
-        System.out.println(" AbstractIFileService addFolder 调用了删除文件夹");
-        return false;
+        //id集合
+        List<Long> idList = new ArrayList<>();
+        //资源key集合
+        List<String> keys = new ArrayList<>();
+        this.selectPermissionChildById(id, idList, keys);
+        idList.add(id);
+        //删除Minio里的资源
+        FilePojo pojo = baseMapper.selectById(id);
+        keys.add(pojo.getFileName());
+        for (String key : keys) {
+            deleteFile(key);
+        }
+        return baseMapper.deleteBatchIds(idList) > 0;
     }
+
+    private void selectPermissionChildById(Long id, List<Long> idList, List<String> keys) {
+        //查询菜单里面子菜单id
+        LambdaQueryWrapper<FilePojo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FilePojo::getParentId, id);
+        List<FilePojo> childIdList = baseMapper.selectList(wrapper);
+        //把childIdList里面菜单id值获取出来，封装idList里面，做递归查询
+        if (!CollectionUtils.isEmpty(childIdList)) {
+            childIdList.forEach(item -> {
+                //封装idList里面
+                idList.add(item.getId());
+                //如果资源不是文件夹，则把资源名称封装到keys
+                if (!item.getIsDir()) {
+                    keys.add(item.getFileName());
+                }
+                //递归查询
+                this.selectPermissionChildById(item.getId(), idList, keys);
+            });
+        }
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override

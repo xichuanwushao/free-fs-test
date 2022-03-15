@@ -57,13 +57,14 @@ public class FileController {
     }
     /**
      * 根据id删除文件
-     *
      * @param id
      */
     @PostMapping("/deleteByIds")
     public R deleteByIds(Long id) {
-        fileService.deleteByIds(id);
-        return R.succeed("删除成功");
+        if (fileService.deleteByIds(id)) {
+            return R.succeed("删除成功");
+        }
+        return R.failed("删除失败");
 
     }
 
