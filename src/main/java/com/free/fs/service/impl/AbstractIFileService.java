@@ -168,9 +168,23 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
 
     @Override
     public R uploadSharding(MultipartFile[] files, String dirIds, HttpSession session) {
-
+        if (files == null || files.length == 0) {
+            throw new BusinessException("文件不能为空");
+        }
         for (MultipartFile file : files) {
             FilePojo filePojo = uploadFileSharding(file, session);
+            String dirId = dirIds.substring(dirIds.lastIndexOf(CommonConstant.DIR_SPLIT) + 1);
+            if (CommonConstant.DIR_SPLIT.equals(dirId) || StringUtils.isEmpty(dirId)) {
+                filePojo.setParentId(CommonConstant.ROOT_PARENT_ID);
+            } else {
+                FilePojo p = baseMapper.selectById(Long.parseLong(dirId));
+                filePojo.setParentId(p.getId());
+            }
+            int flag = 0;
+            filePojo.setName(recursionFindName(filePojo.getName(), filePojo.getName(), filePojo.getParentId(), flag));
+            if (baseMapper.insert(filePojo) <= 0) {
+                return R.failed("文件：" + file.getOriginalFilename() + "上传失败");
+            }
         }
         return R.succeed("上传成功");
     }
