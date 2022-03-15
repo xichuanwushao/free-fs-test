@@ -188,6 +188,6 @@ public class FileController {
     @GetMapping({"", "/list"})
     public R getList(FilePojo pojo) {
         List<FilePojo> list = fileService.getList(pojo);
-        return R.succeed(list, "查询成功");
+        return R.succeed(list, "查询成功!");
     }
 }

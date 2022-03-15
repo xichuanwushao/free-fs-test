@@ -161,7 +161,17 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
 
     @Override
     public List<FilePojo> getList(FilePojo pojo) {
-        System.out.println(" AbstractIFileService getList 调用了getList");
-        return null;
+        LambdaQueryWrapper<FilePojo> wrapper = new LambdaQueryWrapper<>();
+        String dirIds = pojo.getDirIds();
+        if (StringUtils.isNotEmpty(dirIds)) {
+            dirIds = dirIds.substring(dirIds.lastIndexOf(CommonConstant.DIR_SPLIT) + 1);
+            if (StringUtils.isNotEmpty(dirIds)) {
+                wrapper.eq(FilePojo::getParentId, Long.parseLong(dirIds));
+            } else {
+                wrapper.eq(FilePojo::getParentId, CommonConstant.ROOT_PARENT_ID);
+            }
+        }
+        wrapper.orderByDesc(FilePojo::getIsDir, FilePojo::getPutTime);
+        return baseMapper.selectList(wrapper);
     }
 }
