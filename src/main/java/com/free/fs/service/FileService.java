@@ -106,4 +106,11 @@ public interface FileService {
      */
     List<Dtree> getTreeList(FilePojo pojo);
 
+    /**
+     * 获取目录树结构列表
+     *
+     * @param pojo
+     * @return
+     */
+    List<Dtree> getDirTreeList(FilePojo pojo);
 }

@@ -204,4 +204,17 @@ public class FileController {
         List<Dtree> list = fileService.getTreeList(pojo);
         return JSON.toJSONString(R.succeed(list, "查询成功"));
     }
+
+
+    /**
+     * 获取树结构目录列表
+     *
+     * @param pojo
+     * @return
+     */
+    @GetMapping("/getDirTree")
+    public String getDirTree(FilePojo pojo) {
+        List<Dtree> list = fileService.getDirTreeList(pojo);
+        return JSON.toJSONString(R.succeed(list, "查询成功"));
+    }
 }

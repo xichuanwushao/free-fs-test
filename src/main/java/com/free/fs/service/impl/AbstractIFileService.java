@@ -215,4 +215,11 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
                 .collect(Collectors.toList());
     }
 
+
+
+    @Override
+    public List<Dtree> getDirTreeList(FilePojo pojo) {
+        pojo.setIsDir(Boolean.TRUE);
+        return this.getTreeList(pojo);
+    }
 }
