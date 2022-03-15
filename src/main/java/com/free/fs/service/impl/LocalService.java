@@ -39,6 +39,12 @@ public class LocalService extends AbstractIFileService{
         return null;
     }
 
+    @Override
+    protected String switchingStorage() {
+        String str = "20:25 2022/3/11 LocalService switchingStorage 当前对象存储方式为 local" ;
+        return str;
+    }
+
 
     @Override
     public void download(String url, HttpServletResponse response) {

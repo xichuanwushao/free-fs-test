@@ -312,4 +312,18 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
         pojo.setIsDir(Boolean.TRUE);
         return this.getTreeList(pojo);
     }
+
+    /***
+     * 对象存储方式切换测试
+     * @return
+     */
+    @Override
+    public String switchingStorageMode(){
+        //在删除Minio
+        return switchingStorage();
+    }
+    /**
+     * 对象存储方式切换测试
+     */
+    protected abstract  String  switchingStorage();
 }

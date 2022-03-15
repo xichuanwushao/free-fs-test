@@ -5,7 +5,7 @@ server:
     context-path: /free-fs-test
 fs:
   files-server:
-    type: minio
+    type: oss
     local:
       uploadPath: local
       ngxinxUrl: local

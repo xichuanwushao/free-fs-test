@@ -34,6 +34,12 @@ public class MinioService extends AbstractIFileService{
         return minioTemplate.uploadSharding(file, session);
     }
 
+    @Override
+    protected String switchingStorage() {
+        String str = "20:25 2022/3/11 LocalService switchingStorage 当前对象存储方式为 minio" ;
+        return str;
+    }
+
 
     @Override
     protected void deleteFile(String url) {

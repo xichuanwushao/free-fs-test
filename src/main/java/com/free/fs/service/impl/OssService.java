@@ -33,6 +33,12 @@ public class OssService extends AbstractIFileService{
         return null;
     }
 
+    @Override
+    protected String switchingStorage() {
+        String str = "20:25 2022/3/11 LocalService switchingStorage 当前对象存储方式为 oss" ;
+        return str;
+    }
+
 
     @Override
     protected void deleteFile(String url) {

@@ -113,4 +113,9 @@ public interface FileService {
      * @return
      */
     List<Dtree> getDirTreeList(FilePojo pojo);
+    /***
+     * 对象存储方式切换测试
+     * @return
+     */
+    String switchingStorageMode();
 }

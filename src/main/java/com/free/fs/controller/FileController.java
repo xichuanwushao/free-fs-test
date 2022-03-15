@@ -25,23 +25,15 @@ import java.util.Map;
 public class FileController {
 
     private final FileService fileService;
-    /**
-     * 获取文件列表
+
+
+    /***
+     * 对象存储方式切换测试
      * @return
      */
-    @GetMapping({ "/list"})
-    public String getList() {
-        return "查询成功";
-    }
-
-
-    @GetMapping("/deleteFileTest")
-    public R deleteFileTest(String url) {
-        if (fileService.delete(url)) {
-            return R.succeed("删除成功");
-        }
-        return R.failed("删除失败");
-
+    @GetMapping("/switchingStorage")
+    public R switchingStorageMode() {
+        return R.succeed(fileService.switchingStorageMode());
     }
     /**
      * 新增文件夹
