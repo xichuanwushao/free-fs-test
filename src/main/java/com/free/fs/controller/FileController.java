@@ -1,6 +1,8 @@
 package com.free.fs.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.free.fs.common.util.R;
+import com.free.fs.model.Dtree;
 import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
 import lombok.RequiredArgsConstructor;
@@ -189,5 +191,17 @@ public class FileController {
     public R getList(FilePojo pojo) {
         List<FilePojo> list = fileService.getList(pojo);
         return R.succeed(list, "查询成功!");
+    }
+
+    /**
+     * 获取树结构列表
+     *
+     * @param pojo
+     * @return
+     */
+    @GetMapping("/getTree")
+    public String getTree(FilePojo pojo) {
+        List<Dtree> list = fileService.getTreeList(pojo);
+        return JSON.toJSONString(R.succeed(list, "查询成功"));
     }
 }

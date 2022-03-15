@@ -1,6 +1,7 @@
 package com.free.fs.service;
 
 import com.free.fs.common.util.R;
+import com.free.fs.model.Dtree;
 import com.free.fs.model.FilePojo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -96,4 +97,13 @@ public interface FileService {
      * @return
      */
     List<FilePojo> getList(FilePojo pojo);
+
+    /**
+     * 获取文件树结构列表
+     *
+     * @param pojo
+     * @return
+     */
+    List<Dtree> getTreeList(FilePojo pojo);
+
 }

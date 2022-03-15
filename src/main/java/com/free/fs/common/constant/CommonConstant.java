@@ -46,6 +46,14 @@ public interface CommonConstant {
      * 云存储类型-mini
      */
     String FILE_TYPE_MINIO = "minio";
+    /**
+     * dtree指定图标
+     */
+    String DTREE_ICON_1 = "dtree-icon-weibiaoti5";
 
+    /**
+     * dtree指定图标
+     */
+    String DTREE_ICON_2 = "dtree-icon-normal-file";
 
 }
