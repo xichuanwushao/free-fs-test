@@ -75,8 +75,10 @@ public class FileController {
      */
     @PostMapping("/deleteFile")
     public R deleteFile(String url) {
-        fileService.delete(url);
-        return R.succeed("删除成功");
+        if (fileService.delete(url)) {
+            return R.succeed("删除成功");
+        }
+        return R.failed("删除失败");
     }
 
 

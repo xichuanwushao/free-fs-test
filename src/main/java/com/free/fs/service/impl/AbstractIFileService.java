@@ -26,10 +26,16 @@ import java.util.stream.Collectors;
 public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, FilePojo> implements FileService {
 
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean delete(String url) {
-        deleteFile( url);
-        return false;
+    public boolean delete(String url){
+        //先删除数据库
+        if (baseMapper.delete(new LambdaQueryWrapper<FilePojo>().eq(FilePojo::getUrl, url)) <= 0) {
+            throw new BusinessException("资源删除失败");
+        }
+        //在删除Minio
+        deleteFile(url);
+        return true;
     }
     /**
      * 删除文件资源
