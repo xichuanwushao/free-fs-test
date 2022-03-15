@@ -117,10 +117,47 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
 
     @Override
     public R upload(MultipartFile[] files, String dirIds){
+        if (files == null || files.length == 0) {
+            throw new BusinessException("文件不能为空");
+        }
         for (MultipartFile file : files) {
             FilePojo filePojo = uploadFile(file);
+            String dirId = dirIds.substring(dirIds.lastIndexOf(CommonConstant.DIR_SPLIT) + 1);
+            if (CommonConstant.DIR_SPLIT.equals(dirId) || StringUtils.isEmpty(dirId)) {
+                filePojo.setParentId(CommonConstant.ROOT_PARENT_ID);
+            } else {
+                FilePojo p = baseMapper.selectById(Long.parseLong(dirId));
+                filePojo.setParentId(p.getId());
+            }
+            int flag = 0;
+            filePojo.setName(recursionFindName(filePojo.getName(), filePojo.getName(), filePojo.getParentId(), flag));
+            if (baseMapper.insert(filePojo) <= 0) {
+                return R.failed("文件：" + file.getOriginalFilename() + "上传失败");
+            }
         }
-        return null;
+        return R.succeed("上传成功");
+    }
+
+
+    /**
+     * 递归查询查询name是否存在，如果存在，则给name+(flag)
+     *
+     * @param sname 原name
+     * @param rname 修改后name
+     * @param flag 标记值
+     * @return
+     */
+    private String recursionFindName(String sname, String rname, Long parentId, int flag) {
+        Integer count = baseMapper.selectCount(new LambdaQueryWrapper<FilePojo>()
+                .eq(FilePojo::getName, rname)
+                .eq(FilePojo::getIsDir,Boolean.FALSE)
+                .eq(FilePojo::getParentId,parentId));
+        if (count > 0) {
+            flag++;
+            rname = sname + "(" + flag + ")";
+            return recursionFindName(sname, rname, parentId, flag);
+        }
+        return flag > 0 ? sname + "(" + flag + ")" : sname;
     }
     /**
      * 上传文件
