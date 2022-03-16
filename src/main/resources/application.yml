@@ -5,10 +5,10 @@ server:
     context-path: /free-fs-test
 fs:
   files-server:
-    type: oss
+    type: local
     local:
-      uploadPath: local
-      ngxinxUrl: local
+      uploadPath: F:\Soft\JAVA\nginx\nginx-1.12.2\static  #windows
+      ngxinxUrl: http://localhost
     minio:
       accessKey: minio
       secretKey: minio

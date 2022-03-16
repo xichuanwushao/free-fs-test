@@ -130,20 +130,22 @@ public class FileController {
     }
 
 
+
     /**
-     * 文件上传
-     * @param files
-     * @param dirIds
-     * @return
-     */
+    *文件上传
+    *@param files
+    *@param dirIds
+    *@return
+    */
     @ApiOperation("文件上传")
-    @PostMapping({"", "/upload"})
-    public R upload(@RequestParam(value = "file") MultipartFile[] files, String dirIds) {
-
-        return fileService.upload(files, dirIds);
-
+    @ApiImplicitParams({
+    @ApiImplicitParam(name="files",value="文件流对象,接收数组格式",required=true,dataType="java.io.File",paramType="query"),
+    @ApiImplicitParam(name="dirIds",value="目录盘符",required=true,dataTypeClass = String.class)
+    })
+    @PostMapping({"/upload"})
+    public R upload(@RequestPart(value="files")MultipartFile[] files,String dirIds){
+        return fileService.upload(files,dirIds);
     }
-
 
     /**
      * 文件分片上传

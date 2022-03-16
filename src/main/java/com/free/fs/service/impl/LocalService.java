@@ -1,5 +1,6 @@
 package com.free.fs.service.impl;
 
+import com.free.fs.common.exception.BusinessException;
 import com.free.fs.common.template.LocalTemplate;
 import com.free.fs.model.FilePojo;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,8 +30,7 @@ public class LocalService extends AbstractIFileService{
 
     @Override
     protected FilePojo uploadFile(MultipartFile file) {
-        System.out.println("20:25 2022/3/11 LocalService LocalFile" );
-        return null;
+        return localTemplate.upload(file);
     }
 
     @Override

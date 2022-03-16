@@ -1,11 +1,17 @@
 package com.free.fs.common.template;
 
+import com.free.fs.common.constant.CommonConstant;
 import com.free.fs.common.properties.FsServerProperties;
+import com.free.fs.common.util.FileUtil;
+import com.free.fs.model.FilePojo;
+import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 /**
  * @author : wuxiao
@@ -24,5 +30,21 @@ public class LocalTemplate {
 
     public void download(String url, HttpServletResponse response) {
         System.out.println("20:25 2022/3/11 LocalTemplate download" );
+    }
+
+    @SneakyThrows
+    public FilePojo upload(MultipartFile file) {
+        FilePojo pojo = FileUtil.buildFilePojo(file);
+        File folder = new File(fileProperties.getLocal().getUploadPath());
+        //目录不存在则创建
+        if (!folder.isDirectory()) {
+            folder.mkdirs();
+        }
+        //保存文件
+        file.transferTo(new File(folder + CommonConstant.DIR_SPLIT + pojo.getFileName()));
+        // 返回上传文件的访问路径
+        String url = fileProperties.getLocal().getNgxinxUrl() + CommonConstant.DIR_SPLIT + pojo.getFileName();
+        pojo.setUrl(url);
+        return pojo;
     }
 }
