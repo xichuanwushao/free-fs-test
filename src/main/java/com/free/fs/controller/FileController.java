@@ -122,9 +122,10 @@ public class FileController {
      *
      * @param url
      * @param response
+     * 参考 https://gitee.com/xiaoym/knife4j/issues/I1F40F#note_2519831_link
      */
     @ApiOperation("文件下载")
-    @GetMapping("/downLoad")
+    @GetMapping(value="/downLoad",produces = "application/octet-stream")
     public void downLoad(String url, HttpServletResponse response) {
         fileService.download(url, response);
     }

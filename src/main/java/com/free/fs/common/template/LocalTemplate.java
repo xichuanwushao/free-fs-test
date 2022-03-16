@@ -29,7 +29,7 @@ public class LocalTemplate {
     }
 
     public void download(String url, HttpServletResponse response) {
-        System.out.println("20:25 2022/3/11 LocalTemplate download" );
+        FileUtil.downLoad(url, fileProperties.getLocal().getNgxinxUrl(), response);
     }
 
     @SneakyThrows
