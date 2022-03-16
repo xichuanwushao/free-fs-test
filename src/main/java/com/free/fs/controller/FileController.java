@@ -5,6 +5,10 @@ import com.free.fs.common.util.R;
 import com.free.fs.model.Dtree;
 import com.free.fs.model.FilePojo;
 import com.free.fs.service.FileService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +23,7 @@ import java.util.Map;
  * @author : wuxiao
  * @date : 19:18 2022/3/11
  */
+@Api
 @RestController
 @RequestMapping("file")
 @RequiredArgsConstructor
@@ -31,6 +36,7 @@ public class FileController {
      * 对象存储方式切换测试
      * @return
      */
+    @ApiOperation("对象存储方式切换测试")
     @GetMapping("/switchingStorage")
     public R switchingStorageMode() {
         return R.succeed(fileService.switchingStorageMode());
@@ -40,6 +46,11 @@ public class FileController {
      *
      * @param pojo
      */
+    @ApiImplicitParams({//allowableValues="不要特殊字符"
+            @ApiImplicitParam(name="dirIds",value="目录 例:/ 或者/8/9",paramType = "query",required=true,dataTypeClass = String.class),
+            @ApiImplicitParam(name="name",value="文件名称 例:其他",paramType = "query",required=true,dataTypeClass = String.class),
+    })
+    @ApiOperation("新增文件夹")
     @PostMapping("/addFolder")
     public R addFolder(FilePojo pojo) {
         if (fileService.addFolder(pojo)) {
@@ -51,6 +62,7 @@ public class FileController {
      * 根据id删除文件
      * @param id
      */
+    @ApiOperation("根据id删除文件")
     @PostMapping("/deleteByIds")
     public R deleteByIds(Long id) {
         if (fileService.deleteByIds(id)) {
@@ -66,6 +78,7 @@ public class FileController {
      *
      * @param url
      */
+    @ApiOperation("根据url删除文件")
     @PostMapping("/deleteFile")
     public R deleteFile(String url) {
         if (fileService.delete(url)) {
@@ -81,6 +94,7 @@ public class FileController {
      * @param ids
      * @param parentId
      */
+    @ApiOperation("移动文件")
     @PostMapping("/move")
     public R move(String ids, Long parentId) {
         if (fileService.move(ids, parentId)) {
@@ -94,6 +108,7 @@ public class FileController {
      *
      * @param pojo
      */
+    @ApiOperation("修改名称")
     @PostMapping("/updateByName")
     public R upload(FilePojo pojo) {
         if (fileService.updateByName(pojo)) {
@@ -108,6 +123,7 @@ public class FileController {
      * @param url
      * @param response
      */
+    @ApiOperation("文件下载")
     @GetMapping("/downLoad")
     public void downLoad(String url, HttpServletResponse response) {
         fileService.download(url, response);
@@ -120,6 +136,7 @@ public class FileController {
      * @param dirIds
      * @return
      */
+    @ApiOperation("文件上传")
     @PostMapping({"", "/upload"})
     public R upload(@RequestParam(value = "file") MultipartFile[] files, String dirIds) {
 
@@ -133,6 +150,7 @@ public class FileController {
      * @param files
      * @return
      */
+    @ApiOperation("文件分片上传")
     @PostMapping("/uploadSharding")
     public R uploadSharding(@RequestParam(value = "file") MultipartFile[] files, String dirIds, HttpServletRequest request) {
         return fileService.uploadSharding(files, dirIds, request.getSession());
@@ -144,6 +162,7 @@ public class FileController {
      * @param request
      * @return
      */
+    @ApiOperation("获取进度数据")
     @GetMapping("/percent")
     public Integer percent(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -155,6 +174,7 @@ public class FileController {
      *
      * @param request
      */
+    @ApiOperation("重置上传进度")
     @GetMapping("/percent/reset")
     public void resetPercent(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -168,6 +188,7 @@ public class FileController {
      * @param id
      * @return
      */
+    @ApiOperation("获取目录列表")
     @GetMapping("/getDirs")
     public R getDirs(Long id) {
         Map<String, Object> map = fileService.getDirs(id);
@@ -180,6 +201,7 @@ public class FileController {
      * @param pojo
      * @return
      */
+    @ApiOperation("获取文件列表")
     @GetMapping({"", "/list"})
     public R getList(FilePojo pojo) {
         List<FilePojo> list = fileService.getList(pojo);
@@ -192,6 +214,7 @@ public class FileController {
      * @param pojo
      * @return
      */
+    @ApiOperation("获取树结构列表")
     @GetMapping("/getTree")
     public String getTree(FilePojo pojo) {
         List<Dtree> list = fileService.getTreeList(pojo);
@@ -205,6 +228,7 @@ public class FileController {
      * @param pojo
      * @return
      */
+    @ApiOperation("获取树结构目录列表")
     @GetMapping("/getDirTree")
     public String getDirTree(FilePojo pojo) {
         List<Dtree> list = fileService.getDirTreeList(pojo);

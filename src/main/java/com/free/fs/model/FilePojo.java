@@ -6,8 +6,9 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 /**
  * <p>
  * 文件资源表
@@ -23,7 +24,7 @@ public class FilePojo extends Model<FilePojo> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId
+    @TableId ( type = IdType.AUTO)
     private Long id;
 
     /**
@@ -54,7 +55,7 @@ public class FilePojo extends Model<FilePojo> {
     /**
      * 尺寸
      */
-    private Integer size;
+    private Long size;
 
     /**
      * 文件展示类型，非后缀名
@@ -64,7 +65,8 @@ public class FilePojo extends Model<FilePojo> {
     /**
      * 上传时间
      */
-    private LocalDateTime putTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date putTime;
 
     /**
      * 是否目录
