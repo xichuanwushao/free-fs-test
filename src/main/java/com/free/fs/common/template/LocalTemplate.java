@@ -1,5 +1,6 @@
 package com.free.fs.common.template;
 
+import cn.hutool.core.util.StrUtil;
 import com.free.fs.common.constant.CommonConstant;
 import com.free.fs.common.properties.FsServerProperties;
 import com.free.fs.common.util.FileUtil;
@@ -24,8 +25,11 @@ public class LocalTemplate {
     private FsServerProperties fileProperties;
 
     public void delete(String url) {
-        String delete = fileProperties.getLocal().getUploadPath() ;
-        System.out.println("20:25 2022/3/11 LocalTemplate delete" +delete);
+        String key = url.replaceAll(fileProperties.getLocal().getNgxinxUrl() + CommonConstant.DIR_SPLIT, "");
+        File file = new File(fileProperties.getLocal().getUploadPath() + CommonConstant.DIR_SPLIT + key);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     public void download(String url, HttpServletResponse response) {

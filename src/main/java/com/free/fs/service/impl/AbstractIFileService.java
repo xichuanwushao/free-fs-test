@@ -29,7 +29,7 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean delete(String url){
-        //先删除数据库
+        //先删除数据库表中的值
         if (baseMapper.delete(new LambdaQueryWrapper<FilePojo>().eq(FilePojo::getUrl, url)) <= 0) {
             throw new BusinessException("资源删除失败");
         }
