@@ -3,15 +3,22 @@ server:
   # 云存储配置
   servlet:
     context-path: /free-fs-test
+  tomcat:
+    uri-encoding: UTF-8
+    max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
+
 fs:
   files-server:
-    type: local
+    type: minio
     local:
       uploadPath: F:\Soft\JAVA\nginx\nginx-1.12.2\static  #windows
       ngxinxUrl: http://localhost
     minio:
-      accessKey: minio
-      secretKey: minio
+      accessKey: minioadmin
+      secretKey: minioadmin
+      consoleUrl: http://192.168.1.81:9000/
+      apiPort: 9000
+      defaultBucket: huoyan
     #oss配置
     oss:
       accessKey: oss
