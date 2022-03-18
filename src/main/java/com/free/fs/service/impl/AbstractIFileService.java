@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.free.fs.common.constant.CommonConstant;
 import com.free.fs.common.exception.BusinessException;
+import com.free.fs.common.properties.FsServerProperties;
 import com.free.fs.common.util.R;
 import com.free.fs.mapper.FileInfoMapper;
 import com.free.fs.model.Dtree;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,7 +26,8 @@ import java.util.stream.Collectors;
  * @date : 19:24 2022/3/11
  */
 public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, FilePojo> implements FileService {
-
+    @Resource
+    private FsServerProperties fileProperties;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -84,7 +87,11 @@ public abstract class AbstractIFileService extends ServiceImpl<FileInfoMapper, F
         idList.add(id);
         //删除Minio里的资源
         FilePojo pojo = baseMapper.selectById(id);
-        keys.add(pojo.getFileName());
+        if(fileProperties.getType().equals(CommonConstant.FILE_TYPE_MINIO)){
+            keys.add(pojo.getUrl());
+        }else{
+            keys.add(pojo.getFileName());
+        }
         for (String key : keys) {
             deleteFile(key);
         }
