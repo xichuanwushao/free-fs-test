@@ -126,7 +126,7 @@ public class FileController implements FileControllerSwagger{
     *@param dirIds
     *@return
     */
-    @ApiOperationSupport(order = 15)
+    @ApiOperationSupport(order = 14)
     @ApiOperation("文件上传")
     @ApiImplicitParams({
     @ApiImplicitParam(name="files",value="文件流对象,接收数组格式",required=true,dataType="java.io.File",paramType="query"),

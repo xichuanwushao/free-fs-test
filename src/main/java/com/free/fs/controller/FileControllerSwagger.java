@@ -27,7 +27,7 @@ public interface FileControllerSwagger {
      */
 
     @ApiOperation("对象存储方式切换测试")
-    @ApiOperationSupport(order=1)
+    @ApiOperationSupport(order=15)
     public R switchingStorageMode();
 
     /**
@@ -36,7 +36,7 @@ public interface FileControllerSwagger {
      * @param pojo
      */
     @ApiOperation("新增文件夹")
-    @ApiOperationSupport(order = 2)
+    @ApiOperationSupport(order = 1)
     @ApiImplicitParams({//allowableValues="不要特殊字符"
             @ApiImplicitParam(name="dirIds",value="目录 例:/ 或者/8/9",paramType = "query",required=true,dataTypeClass = String.class),
             @ApiImplicitParam(name="name",value="文件名称 例:其他",paramType = "query",required=true,dataTypeClass = String.class),
@@ -48,7 +48,7 @@ public interface FileControllerSwagger {
      * 根据id删除文件
      * @param id
      */
-    @ApiOperationSupport(order = 3)
+    @ApiOperationSupport(order = 9)
     @ApiImplicitParams({//allowableValues="不要特殊字符"
             @ApiImplicitParam(name="id",value="数据库ID 例:1 或者13",paramType = "query",required=true,dataTypeClass = Long.class),
     })
@@ -59,7 +59,7 @@ public interface FileControllerSwagger {
      * 根据url删除文件
      * @param url
      */
-    @ApiOperationSupport(order = 4)
+    @ApiOperationSupport(order = 8)
     @ApiImplicitParams({//allowableValues="不要特殊字符"
             @ApiImplicitParam(name="url",value="文件或图片的url 例:http://host/25c7c076d.png ",paramType = "query",required=true,dataTypeClass = String.class),
     })
@@ -72,7 +72,7 @@ public interface FileControllerSwagger {
      * @param ids
      * @param parentId
      */
-    @ApiOperationSupport(order = 5)
+    @ApiOperationSupport(order = 2)
     @ApiImplicitParams({
             @ApiImplicitParam(name="ids",value="源文件ID 例:\"38,34,46\"",paramType = "query",required=true,dataTypeClass = String.class),
             @ApiImplicitParam(name="parentId",value="目标路径ID 37",paramType = "query",required=true,dataTypeClass = Long.class),
@@ -86,7 +86,7 @@ public interface FileControllerSwagger {
      *
      * @param pojo
      */
-    @ApiOperationSupport(order = 6)
+    @ApiOperationSupport(order = 3)
     @ApiImplicitParams({
             @ApiImplicitParam(name="id",value="数据库ID 例:2 或者40",paramType = "query",required=true,dataTypeClass = Long.class),
             @ApiImplicitParam(name="name",value="旧文件名 ",paramType = "query",required=true,dataTypeClass = String.class),
@@ -103,7 +103,7 @@ public interface FileControllerSwagger {
      * @param response
      * 参考 https://gitee.com/xiaoym/knife4j/issues/I1F40F#note_2519831_link
      */
-    @ApiOperationSupport(order = 7)
+    @ApiOperationSupport(order = 10)
     @ApiOperation("文件下载")
     public void downLoad(String url, HttpServletResponse response) ;
 
@@ -114,7 +114,7 @@ public interface FileControllerSwagger {
      * @param files
      * @return
      */
-    @ApiOperationSupport(order = 8)
+    @ApiOperationSupport(order = 11)
     @ApiOperation("文件分片上传")
     public R uploadSharding(@RequestParam(value = "file") MultipartFile[] files, String dirIds, HttpServletRequest request) ;
 
@@ -126,7 +126,7 @@ public interface FileControllerSwagger {
      * @param request
      * @return
      */
-    @ApiOperationSupport(order = 9)
+    @ApiOperationSupport(order = 12)
     @ApiOperation("获取进度数据")
     public Integer percent(HttpServletRequest request) ;
     /**
@@ -134,7 +134,7 @@ public interface FileControllerSwagger {
      *
      * @param request
      */
-    @ApiOperationSupport(order = 10)
+    @ApiOperationSupport(order = 13)
     @ApiOperation("重置上传进度")
     public void resetPercent(HttpServletRequest request) ;
 
@@ -145,17 +145,20 @@ public interface FileControllerSwagger {
      * @param id
      * @return
      */
-    @ApiOperationSupport(order = 11)
+    @ApiOperationSupport(order = 4)
     @ApiOperation("获取目录列表")
     public R getDirs(Long id);
 
     /**
-     * 获取文件列表
+     * 获取文件列表 /35/38
      *
      * @param pojo
      * @return
      */
-    @ApiOperationSupport(order = 12)
+    @ApiOperationSupport(order = 5)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="dirIds",value="文件夹路径 例:/35/38",paramType = "query",required=true,dataTypeClass = String.class),
+    })
     @ApiOperation("获取文件列表")
     public R getList(FilePojo pojo) ;
 
@@ -165,8 +168,8 @@ public interface FileControllerSwagger {
      * @param pojo
      * @return
      */
-    @ApiOperationSupport(order = 13)
-    @ApiOperation("获取树结构列表")
+    @ApiOperationSupport(order = 6)
+    @ApiOperation("获取树结构列表" )
     public String getTree(FilePojo pojo) ;
 
     /**
@@ -175,7 +178,7 @@ public interface FileControllerSwagger {
      * @param pojo
      * @return
      */
-    @ApiOperationSupport(order = 14)
+    @ApiOperationSupport(order = 7)
     @ApiOperation("获取树结构目录列表")
     public String getDirTree(FilePojo pojo) ;
 
