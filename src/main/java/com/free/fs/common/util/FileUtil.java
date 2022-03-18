@@ -200,11 +200,17 @@ public class FileUtil {
         }
     }
 
-    public static String getFileNameFromURL(String url) {
+    public static String getShouQuanFileNameFromURL(String url) {
         int endIndex = url.indexOf(CommonConstant.URL_WENHAO);
         url = url.substring(0,endIndex);
         int statIndex = url.lastIndexOf(CommonConstant.URL_RIGHT_XIEGANG);
         String objectName = url.substring(statIndex+1,endIndex);
         return objectName;
+    }
+
+    public static String getNiMingFileNameFromUR(String url) {
+        int statIndex = url.lastIndexOf(CommonConstant.URL_RIGHT_XIEGANG);
+        String fileName = url.substring(statIndex+1, url.length());
+        return fileName;
     }
 }

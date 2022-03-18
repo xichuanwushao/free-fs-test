@@ -1,6 +1,7 @@
 package com.free.fs.common.template;
 
 import cn.hutool.core.io.StreamProgress;
+import com.free.fs.common.constant.CommonConstant;
 import com.free.fs.common.minio.MinioClientBuilder;
 import com.free.fs.common.properties.FsServerProperties;
 import com.free.fs.common.util.FileUtil;
@@ -39,8 +40,8 @@ public class MinioTemplate {
                 fileProperties.getMinio().getAccessKey(),
                 fileProperties.getMinio().getSecretKey(),false
         );
-        String fileName = FileUtil.getFileNameFromURL(url);
-        Boolean isDeleteObject = MinioUtils.getInstance().deleteObject(minioClient,fileProperties.getMinio().getDefaultBucket(), fileName);
+        String fileName = FileUtil.getNiMingFileNameFromUR(url);
+        boolean isDeleteObject = MinioUtils.getInstance().deleteObject(minioClient,fileProperties.getMinio().getDefaultBucket(), fileName);
         return isDeleteObject;
     }
     @SneakyThrows
@@ -53,7 +54,8 @@ public class MinioTemplate {
         );
         FilePojo pojo = FileUtil.buildFilePojo(file);
         if (uploadObject(minioClient,file,pojo)) {
-            pojo.setUrl(getObjectUrl(file,pojo));
+            String url = fileProperties.getMinio().getConsoleUrl() + CommonConstant.DIR_SPLIT + fileProperties.getMinio().getDefaultBucket()+CommonConstant.DIR_SPLIT+pojo.getFileName();
+            pojo.setUrl(url);
         }
         return pojo;
     }
@@ -66,7 +68,7 @@ public class MinioTemplate {
     public void download(String url, HttpServletResponse response) {
         try {
             OutputStream out = response.getOutputStream();
-            String fileName = FileUtil.getFileNameFromURL(url);
+            String fileName = FileUtil.getNiMingFileNameFromUR(url);
             response.reset();
             response.setHeader("Pragma", "no-cache");
             response.setHeader("Cache-Control", "no-cache");
@@ -150,6 +152,13 @@ public class MinioTemplate {
         }
         return isUpload;
     }
+
+    /***
+     * 非匿名方式获取URL
+     * @param file
+     * @param pojo
+     * @return
+     */
     @SneakyThrows
     public String getObjectUrl(MultipartFile file,FilePojo pojo) {
         MinioClient minioClient = new MinioClientBuilder().build(
