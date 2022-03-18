@@ -32,14 +32,15 @@ public class MinioTemplate {
 
 
     @SneakyThrows
-    public boolean delete(String objectName) {
+    public boolean delete(String url) {
         MinioClient minioClient = new MinioClientBuilder().build(
                 fileProperties.getMinio().getConsoleUrl(),
                 fileProperties.getMinio().getApiPort(),
                 fileProperties.getMinio().getAccessKey(),
                 fileProperties.getMinio().getSecretKey(),false
         );
-        Boolean isDeleteObject = MinioUtils.getInstance().deleteObject(minioClient,fileProperties.getMinio().getDefaultBucket(), objectName);
+        String fileName = FileUtil.getFileNameFromURL(url);
+        Boolean isDeleteObject = MinioUtils.getInstance().deleteObject(minioClient,fileProperties.getMinio().getDefaultBucket(), fileName);
         return isDeleteObject;
     }
     @SneakyThrows
