@@ -199,4 +199,12 @@ public class FileUtil {
             }
         }
     }
+
+    public static String getFileNameFromURL(String url) {
+        int endIndex = url.indexOf(CommonConstant.URL_WENHAO);
+        url = url.substring(0,endIndex);
+        int statIndex = url.lastIndexOf(CommonConstant.URL_RIGHT_XIEGANG);
+        String objectName = url.substring(statIndex+1,endIndex);
+        return objectName;
+    }
 }

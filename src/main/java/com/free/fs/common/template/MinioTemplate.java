@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 /**
  * @author : wangjun
@@ -61,17 +62,24 @@ public class MinioTemplate {
         return null;
     }
 
-    public void download(String objectName, HttpServletResponse response) {
+    public void download(String url, HttpServletResponse response) {
         try {
+            OutputStream out = response.getOutputStream();
+            String fileName = FileUtil.getFileNameFromURL(url);
+            response.reset();
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
             MinioClient minioClient = new MinioClientBuilder().build(
                     fileProperties.getMinio().getConsoleUrl(),
                     fileProperties.getMinio().getApiPort(),
                     fileProperties.getMinio().getAccessKey(),
                     fileProperties.getMinio().getSecretKey(),false
             );
-            ObjectStat objectStat = MinioUtils.getInstance().statObject(minioClient,fileProperties.getMinio().getDefaultBucket(), objectName);
+            ObjectStat objectStat = MinioUtils.getInstance().statObject(minioClient,fileProperties.getMinio().getDefaultBucket(), fileName);
             long totalLength = objectStat.length();
-            MinioUtils.getInstance().downloadObject(minioClient,fileProperties.getMinio().getDefaultBucket(), objectName, response.getOutputStream(), 10240, new StreamProgress() {
+            MinioUtils.getInstance().downloadObject(minioClient,fileProperties.getMinio().getDefaultBucket(), fileName, out, 10240, new StreamProgress() {
                 @Override
                 public void start() {
                     System.out.println("*****start*****");
@@ -80,7 +88,6 @@ public class MinioTemplate {
                 @Override
                 public void progress(long readLength) {
                     long rate = readLength * 100 / totalLength;
-                    System.out.println(rate);
                 }
 
                 @Override

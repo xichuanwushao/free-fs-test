@@ -56,4 +56,15 @@ public interface CommonConstant {
      */
     String DTREE_ICON_2 = "dtree-icon-normal-file";
 
+
+    /**
+     * URL中问号
+     */
+    String URL_WENHAO = "?";
+
+    /**
+     * URL中右斜杠
+     */
+    String URL_RIGHT_XIEGANG = "/";
+
 }
