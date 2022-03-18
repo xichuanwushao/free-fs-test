@@ -129,11 +129,11 @@ public class MinioTemplate {
 
     public boolean uploadObject( MinioClient minioClient,MultipartFile file, FilePojo pojo) {
         boolean isUpload = false;
-        long totalLength = file.getSize();
+        String contentType = FileUtil.getcontentType(pojo.getFileName().substring(pojo.getFileName().lastIndexOf(".")));
         long partLength = 1024 * 1024 *5;   //5M
         try {
             InputStream inputStream = file.getInputStream();
-            isUpload = MinioUtils.getInstance().uploadFile(minioClient,fileProperties.getMinio().getDefaultBucket(), pojo.getFileName(), inputStream, pojo.getSize(), partLength);
+            isUpload = MinioUtils.getInstance().uploadFile(minioClient,fileProperties.getMinio().getDefaultBucket(), pojo.getFileName(), inputStream, pojo.getSize(), partLength,contentType);
             // 关闭流
             inputStream.close();
         } catch (Exception e) {
@@ -150,7 +150,6 @@ public class MinioTemplate {
                 fileProperties.getMinio().getAccessKey(),
                 fileProperties.getMinio().getSecretKey(),false
         );
-        String objectName = file.getOriginalFilename();
         String objectUrl = MinioUtils.getInstance().getPresignedObjectUrl(minioClient,fileProperties.getMinio().getDefaultBucket(), pojo.getFileName(), 3600);
         System.out.println("对象的外链URL=="+objectUrl);
         return objectUrl;

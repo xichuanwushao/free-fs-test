@@ -3,10 +3,11 @@ server:
   # 云存储配置
   servlet:
     context-path: /free-fs-test
-  tomcat:
-    uri-encoding: UTF-8
-    max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
-
+spring:
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 300MB
 fs:
   files-server:
     type: minio
@@ -16,7 +17,7 @@ fs:
     minio:
       accessKey: minioadmin
       secretKey: minioadmin
-      consoleUrl: http://192.168.1.81:9000/
+      consoleUrl: http://192.168.1.82:9000/
       apiPort: 9000
       defaultBucket: huoyan
     #oss配置

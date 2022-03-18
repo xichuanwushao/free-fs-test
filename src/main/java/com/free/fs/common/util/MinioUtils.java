@@ -291,7 +291,28 @@ public class MinioUtils {
         }
         return isSuccess;
     }
-
+    /**
+     * 以流的方式上传文件到指定的bucket
+     * @param bucketName
+     * @param objectName
+     * @param inputStream
+     * @param totalLength
+     * @param partLength
+     * @return
+     */
+    public boolean uploadFile(MinioClient minioClient,String bucketName, String objectName, InputStream inputStream, long totalLength, long partLength, String contentType) {
+        boolean isSuccess = false;
+        try {
+            PutObjectOptions options = new PutObjectOptions(totalLength, partLength);
+            options.setContentType(contentType);
+            minioClient.putObject(bucketName, objectName, inputStream, options);
+            isSuccess = true;
+        } catch (Exception e) {
+            isSuccess = false;
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
     /**
      * 从指定的位置下载文件到本地
      * @param bucketName
